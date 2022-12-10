@@ -25,7 +25,7 @@ class Director():
 
     def WelcomeMessage(self):
         print("This is a memory game. A set of numbers will be displayed. You have a couple of seconds to memorize them. Once they dissapear, you will be asked to enter the numbers you saw on the screen a moment eariler. As long as you get them right, you will be given a longer sequence of numbers each time. If you get it wrong once, you will be asked if you want to start the gameover. Once you are ready, press Enter. If you want to exit press ctrl C")
-        # input()
+        input()
     
     def EnterNumbers(self):
         print("What were the numbers? Don't include any spaces or commas")
