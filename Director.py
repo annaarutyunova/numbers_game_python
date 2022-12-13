@@ -1,4 +1,5 @@
 from time import sleep
+import os
 import Player
 import Number
 # Before adding the 2 lines below it was giving the following error "Traceback (most recent call last):
@@ -11,11 +12,11 @@ from Player import *
 from Number import *
 
 
-class Director():
+class Director:
     player = Player()
     number = Number()
     numbersEntered = ""
-    time = 2000
+    time = 2
     ifMatch = True
 
     def __init__(self):
@@ -30,36 +31,78 @@ class Director():
     def EnterNumbers(self):
         print("What were the numbers? Don't include any spaces or commas")
         print()
-        Director.numbersEntered = input
+        Director.numbersEntered = input()
         print()
 
     def GetNumbersEntered(self):
-        # return Director.numbersEntered
-        print(Director.numbersEntered)
+        return Director.numbersEntered
+        # print(Director.numbersEntered)
 
     def Compare(self, a, b):
         if a == b:
             print("You got it right!")
-            return Director.ifMatch
+            print()
+            return self.ifMatch
         else:
             print("Oops")
             print()
-            return Director.ifMatch == False
+            self.ifMatch = False
+            return self.ifMatch
+
+    # Needs to be finished
     def StartGame(self):
         Director.WelcomeMessage(self)
-        Number.number.MakeNumberSequence()
-        Number.number.PrintNumbers()
+        Director.number.MakeNumberSequence()
+        self.Clear()
+        self.EnterNumbers()
 
+    # Clear console
     def Clear(self):
-        # threading.sleep(Director.time)
-        sleep(Director.time)
+        sleep(self.time)
+        os.system("cls")
+
+    def GameOver(self):
+        print()
+        print("Thanks for playing!")
         print()
 
+    def Play(self):
+        self.Compare(self.GetNumbersEntered(), Director.number.nums)
+        while self.ifMatch == True:
+            Director.number.AddToNumberSequence()
+            self.time += 1.5
+            Director.number.PrintNums()
+            self.Clear()
+            self.EnterNumbers()
+            self.Compare(self.GetNumbersEntered(), Director.number.nums)
+
+        # if self.ifMatch == False:
+        print("Would you like to play again? y/n")
+        print()
+        a = input()
+        if a == "n":
+            self.GameOver()
+        elif a == "y":
+            self.ResetGame()
+            self.ifMatch = True
+            self.Play()
+
+
+    def ResetGame(self):
+        Director.number.ClearNums()
+        self.time = 2
+        self.ifMatch == True
+        print()
+        
+        Director.number.MakeNumberSequence()
+
+        self.Clear()
+        self.EnterNumbers()
+
+
 c = Director()
-c.WelcomeMessage()
-# c.EnterNumbers()
-# c.GetNumbersEntered()
-c.Clear()
+c.StartGame()
+c.Play()
 
 # Questions
 # sortof got fixed when "from Player import *" Run this code and fix the error. How do I acces other classes in this class? I need a Player and a Number
