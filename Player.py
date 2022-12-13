@@ -1,6 +1,6 @@
 
 class Player():
-    numbersSeen = []
+    # numbersSeen = []
     numbers = ""
 
     def __init__(self):
